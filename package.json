@@ -1,0 +1,12 @@
+{
+  "name": "pr-visualizer-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "probot run ./index.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "probot": "^13.0.0"
+  }
+}
