@@ -1,0 +1,62 @@
+# AI PR Visualizer Bot 🤖
+
+An automated, AI-powered GitHub Pull Request reviewer built with [Probot](https://probot.github.io/) and Google's Gemini SDK. This bot automatically analyzes code changes, provides concise summaries of architectural impacts, and answers direct questions about the PR in the comments.
+
+## Features
+
+* **Automated Code Review:** Triggers immediately on `pull_request.opened`, `synchronize`, and `reopened` events.
+* **Concise AI Summaries:** Uses Gemini to read the PR diff and generate a strict 3-4 bullet point summary of changes and potential risks.
+* **Conversational AI:** Mentions like `@bot` in a PR comment prompt the AI to answer specific questions about the code changes.
+* **Architecture Impact:** Automatically groups changed files by folder to provide a clear visual breakdown of the modules affected.
+* **Diff Truncation:** Built-in safeguards to truncate massive diffs to prevent token-limit crashes.
+
+## Prerequisites
+
+* Node.js
+* A registered [GitHub App](https://docs.github.com/en/apps/creating-github-apps)
+* A [Google Gemini API Key](https://aistudio.google.com/)
+
+## Setup and Installation
+
+1. Clone the repository:
+```bash
+git clone [https://github.com/YOUR_USERNAME/github-pr-bot.git](https://github.com/YOUR_USERNAME/github-pr-bot.git)
+cd github-pr-bot
+```
+
+2. Install dependencies:
+```bash
+npm install
+npm install @google/generative-ai
+```
+
+3. Create a `.env` file in the root directory and add your credentials:
+```env
+APP_ID=
+WEBHOOK_SECRET=
+PRIVATE_KEY=
+GEMINI_API_KEY=
+WEBHOOK_PATH=/
+```
+
+4. Start the bot:
+```bash
+npm start
+```
+
+## GitHub App Permissions Required
+
+To function correctly, the GitHub App must have the following permissions configured in Developer Settings:
+
+* **Pull Requests:** Read & write
+* **Issues:** Read & write
+* **Metadata:** Read-only
+
+**Subscribed Events:**
+* Pull request
+* Issue comment
+
+## Usage
+
+* **Automatic Trigger:** Open a Pull Request or push new commits to an existing one. The bot will automatically read the diffs and post its concise review.
+* **Ask Questions:** In any PR comment thread where the bot is active, type `@bot` followed by your question to get a direct answer based on the PR's code changes.
