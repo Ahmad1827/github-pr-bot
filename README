@@ -1,62 +1,67 @@
-# AI PR Visualizer Bot 🤖
+# 🤖 AI PR Visualizer Bot
 
-An automated, AI-powered GitHub Pull Request reviewer built with [Probot](https://probot.github.io/) and Google's Gemini SDK. This bot automatically analyzes code changes, provides concise summaries of architectural impacts, and answers direct questions about the PR in the comments.
+Automated GitHub Pull Request reviewer with AI narration and conversational capabilities.
 
-## Features
+## ⚙️ Project Architecture
+---
+Data processing pipeline: `GitHub Webhooks` ➔ `Probot (Node.js)` ➔ `Gemini 2.5 Flash`
 
 * **Automated Code Review:** Triggers immediately on `pull_request.opened`, `synchronize`, and `reopened` events.
-* **Concise AI Summaries:** Uses Gemini to read the PR diff and generate a strict 3-4 bullet point summary of changes and potential risks.
-* **Conversational AI:** Mentions like `@bot` in a PR comment prompt the AI to answer specific questions about the code changes.
-* **Architecture Impact:** Automatically groups changed files by folder to provide a clear visual breakdown of the modules affected.
-* **Diff Truncation:** Built-in safeguards to truncate massive diffs to prevent token-limit crashes.
+* **Concise AI Summaries:** Generates a strict 3-4 bullet point summary of changes and potential risks.
+* **Conversational AI:** Mentions like `@bot` in a PR comment prompt the AI to answer specific questions about the code.
+* **Architecture Impact:** Groups changed files by folder to provide a clear visual breakdown of affected modules.
+* **Diff Truncation:** Built-in safeguards to truncate massive diffs (~50k+ characters) to prevent token-limit crashes.
 
-## Prerequisites
 
-* Node.js
-* A registered [GitHub App](https://docs.github.com/en/apps/creating-github-apps)
-* A [Google Gemini API Key](https://aistudio.google.com/)
+## 🛠️ System Requirements & Setup
+---
+The bot runs on Node.js and requires strict API and webhook configurations to bridge GitHub and Google's Gemini.
 
-## Setup and Installation
+### 1. Install Dependencies
 
-1. Clone the repository:
+**Important:** You must have Node.js installed on your system or server environment. 
+
+Clone the repository and install the required packages:
 ```bash
 git clone [https://github.com/YOUR_USERNAME/github-pr-bot.git](https://github.com/YOUR_USERNAME/github-pr-bot.git)
 cd github-pr-bot
-```
-
-2. Install dependencies:
-```bash
 npm install
 npm install @google/generative-ai
 ```
 
-3. Create a `.env` file in the root directory and add your credentials:
+### 2. Environment Variables
+
+Create a `.env` file in the root directory. You must include your Gemini API key and your GitHub App credentials:
 ```env
-APP_ID=
-WEBHOOK_SECRET=
-PRIVATE_KEY=
-GEMINI_API_KEY=
+APP_ID=your_github_app_id
+WEBHOOK_SECRET=your_webhook_secret
+PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+GEMINI_API_KEY=your_gemini_api_key
 WEBHOOK_PATH=/
 ```
 
-4. Start the bot:
+### 3. Start the Engine
+
+Run the following command to start the Probot server:
 ```bash
 npm start
 ```
 
-## GitHub App Permissions Required
 
-To function correctly, the GitHub App must have the following permissions configured in Developer Settings:
+## 🔐 Required GitHub Permissions
+---
+To function correctly, your GitHub App must have the following permissions configured in **Developer Settings**:
 
-* **Pull Requests:** Read & write
-* **Issues:** Read & write
-* **Metadata:** Read-only
+* **Pull Requests:** `Read & write`
+* **Issues:** `Read & write` *(Required for the bot to read and reply to PR comments)*
+* **Metadata:** `Read-only`
 
 **Subscribed Events:**
-* Pull request
-* Issue comment
+* `Pull request`
+* `Issue comment`
 
-## Usage
 
-* **Automatic Trigger:** Open a Pull Request or push new commits to an existing one. The bot will automatically read the diffs and post its concise review.
-* **Ask Questions:** In any PR comment thread where the bot is active, type `@bot` followed by your question to get a direct answer based on the PR's code changes.
+## 🚀 Usage Guide
+---
+* **Automatic Trigger:** Open a Pull Request or push new commits to an existing one. The bot will automatically read the code diffs and post its review.
+* **Direct Interaction:** In any PR comment thread, type `@bot` followed by your question (e.g., *"@bot what files handle the database connection?"*). The bot will read the diff and reply directly to your comment.
