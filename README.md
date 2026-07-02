@@ -1,8 +1,8 @@
-# 🤖 AI PR Visualizer Bot
+# AI PR Visualizer Bot
 
 Automated GitHub Pull Request reviewer with AI narration and conversational capabilities.
 
-## ⚙️ Project Architecture
+## Project Architecture
 ---
 Data processing pipeline: `GitHub Webhooks` ➔ `Probot (Node.js)` ➔ `Gemini 2.5 Flash`
 
@@ -13,7 +13,7 @@ Data processing pipeline: `GitHub Webhooks` ➔ `Probot (Node.js)` ➔ `Gemini 2
 * **Diff Truncation:** Built-in safeguards to truncate massive diffs (~50k+ characters) to prevent token-limit crashes.
 
 
-## 🛠️ System Requirements & Setup
+## System Requirements & Setup
 ---
 The bot runs on Node.js and requires strict API and webhook configurations to bridge GitHub and Google's Gemini.
 
@@ -48,7 +48,7 @@ npm start
 ```
 
 
-## 🔐 Required GitHub Permissions
+## Required GitHub Permissions
 ---
 To function correctly, your GitHub App must have the following permissions configured in **Developer Settings**:
 
@@ -61,7 +61,7 @@ To function correctly, your GitHub App must have the following permissions confi
 * `Issue comment`
 
 
-## 🚀 Usage Guide
+## Usage Guide
 ---
 * **Automatic Trigger:** Open a Pull Request or push new commits to an existing one. The bot will automatically read the code diffs and post its review.
 * **Direct Interaction:** In any PR comment thread, type `@bot` followed by your question (e.g., *"@bot what files handle the database connection?"*). The bot will read the diff and reply directly to your comment.
